@@ -12,11 +12,12 @@ To include in a clojure project add org.clojars.ed_sumitra/clojure-webmvc to the
 
 ## Convention used
 clojure-webmvc assumes application resources will be accessed using REST. The convention used for MVC web applications is
-* All controllers are in the namespace *project.controllers.resource*
-* All views are in the namespace *project.views.resource*
+* All controllers are in the namespace **project.controllers.resource**
+* All views are in the namespace **project.views.resource**
 
-A request to *GET /user/index* will invoke the *myproject.controllers.user/index* controller function and apply its results to the *myproject.views.user/index* view function
+A request to **GET /user/index** will invoke the **myproject.controllers.user/index** controller function and apply its results to the **myproject.views.user/index** view function
 This results in the following code structure that helps managing the complexity of larger web applications.
+
     myproject
       src
           controllers
@@ -31,10 +32,14 @@ This results in the following code structure that helps managing the complexity 
 There is no restriction on which view frameworks can be used. clojure-webmvc can work with enlive or hiccup HTML generation frameworks.
 ## Basic Usage
 After using/requiring the clojure-webmvc package in the namespace define the restful routes for a resource using the compojure defroutes macro
+
     (defroutes user-routes
       (rest-routes [:user]))
+
 This will create the following compojure routes
+
     (GET "/user/index" [] (contoller-handler-fn))
+
 
 ## Configuration
 
