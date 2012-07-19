@@ -3,6 +3,7 @@ The Model-View-Controller or MVC pattern is used extensively in web applications
 
 Frameworks like ruby-on-rails, spring-mvc, spring-roo impose a code structure convention unique to each framework. Clojure-webmvc provides a convention for structuring a RESTful MVC based web application similar to rails and spring-roo.
 
+The sample application illustrates the use of clojure-webmvc in a webapplication
 ## Installation
 To include in a clojure project add org.clojars.ed_sumitra/clojure-webmvc to the project dependencies
 
@@ -10,14 +11,30 @@ To include in a clojure project add org.clojars.ed_sumitra/clojure-webmvc to the
  
 
 ## Convention used
-clojure-webmvc assumes application resources will be accessed using REST. the convention used for MVC web applications is
-* All controllers are in the namespace _project.controllers.resource_
-* All views are in the namespace _project.views.resource_
+clojure-webmvc assumes application resources will be accessed using REST. The convention used for MVC web applications is
+* All controllers are in the namespace *project.controllers.resource*
+* All views are in the namespace *project.views.resource*
 
-A resouce `GET /user/index` will invoke the _myproject.controllers.user/index_ controller function and apply its results to the _myproject.views.user/index_ view function
-This results in the following code structure that facilitates managing the complexity of larger web applications.
+A request to *GET /user/index* will invoke the *myproject.controllers.user/index* controller function and apply its results to the *myproject.views.user/index* view function
+This results in the following code structure that helps managing the complexity of larger web applications.
+    myproject
+      src
+          controllers
+            resource1
+            resource2
+            ...
+          views
+            resource1
+            resource2
+            ...
 
+There is no restriction on which view frameworks can be used. clojure-webmvc can work with enlive or hiccup HTML generation frameworks.
 ## Basic Usage
+After using/requiring the clojure-webmvc package in the namespace define the restful routes for a resource using the compojure defroutes macro
+    (defroutes user-routes
+      (rest-routes [:user]))
+This will create the following compojure routes
+    (GET "/user/index" [] (contoller-handler-fn))
 
 ## Configuration
 
