@@ -30,16 +30,27 @@ This results in the following code structure that helps managing the complexity 
             ...
 
 There is no restriction on which view frameworks can be used. clojure-webmvc can work with enlive or hiccup HTML generation frameworks.
+
 ## Basic Usage
 After using/requiring the clojure-webmvc package in the namespace define the restful routes for a resource using the compojure defroutes macro
 
     (defroutes user-routes
       (rest-routes [:user]))
 
-This will create the following compojure routes
+This will create routes equivalent to the following compojure routes
 
     (GET "/user/index" [] (contoller-handler-fn))
+    (GET "/user/view/:id" [id] (contoller-handler-fn id))
+    (PUT "/user/create" [&params] (contoller-handler-fn params))
+    (POST "/user/update/:id" [id & params] (contoller-handler-fn id params))
+    (DELETE "/user/delete/:id" [id] (contoller-handler-fn id))
 
+To create routes for multiple resources use
+
+    (defroutes user-routes
+      (rest-routes [:user :task]))
+
+The above syntax will create routes for both the **user** and the **task** resources
 
 ## Configuration
 
