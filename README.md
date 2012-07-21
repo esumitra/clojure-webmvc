@@ -68,7 +68,23 @@ If a site wide layout is to be used for the web application, the layout function
 The above declaration defines REST routes for the user and task resources for the project named **webapp1** and uses site-wide layout function **webapp1.views.layout/site-layout** for all views. The sample application illustrates how to define views to work with the layout function with the enlive view framework.
 
 ## Mixing routes
+The routes generated with clojure-webmvc can be used with other compojure routes as illustrated below.
 
+    (defroutes user-routes
+      (rest-routes [:user]))
+
+    (defroutes non-rest-routes
+      (GET "/login" [] (login-handler))
+      (GET "/logout" [] (logout-handler)))
+
+    (defroutes all-routes
+      user-routes
+      non-rest-routes)
+
+    (def webapp (compojure.handler/site all-routes))
+
+clojure-webmvc supports mixing REST routes with non-REST routes for the web application.  
+    
 ## License
 Source Copyright © 2009-2012 Edward Sumitra
 
