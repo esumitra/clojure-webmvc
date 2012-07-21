@@ -21,12 +21,12 @@ This results in the following code structure that helps managing the complexity 
     myproject
       src
           controllers
-            resource1
-            resource2
+              resource1
+              resource2
             ...
           views
-            resource1
-            resource2
+              resource1
+              resource2
             ...
 
 There is no restriction on which view frameworks can be used. clojure-webmvc can work with enlive or hiccup HTML generation frameworks.
@@ -53,6 +53,19 @@ To create routes for multiple resources use
 The above syntax will create routes for both the **user** and the **task** resources
 
 ## Configuration
+The project name to use is specified with the **:project-name** option to the rest-routes function.
+
+    (defroutes user-routes
+      (rest-routes [:user :task] :project-name "webapp1"))
+
+The above declaration defines user and task REST routes for the project named **webapp1**.
+
+If a site wide layout is to be used for the web application, the layout function can be specified using the **:layout** configuration option.
+
+    (defroutes user-routes
+      (rest-routes [:user :task] :project-name "webapp1" :layout webapp1.views.layout/site-layout))
+
+The above declaration defines REST routes for the user and task resources for the project named **webapp1** and uses site-wide layout function **webapp1.views.layout/site-layout** for all views. The sample application illustrates how to define views to work with the layout function with the enlive view framework.
 
 ## Mixing routes
 
